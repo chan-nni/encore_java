@@ -2,6 +2,9 @@ package com.encore.hms.view;
 
 import java.util.Scanner;
 
+import com.encore.hms.domain.EmployeeDTO;
+import com.encore.hms.domain.StudentDTO;
+import com.encore.hms.domain.TeacherDTO;
 import com.encore.hms.domain.sup.Person;
 import com.encore.hms.service.HmsService;
 import com.encore.hms.util.HmsType;
@@ -74,24 +77,36 @@ public class HmsView {
 		} else {
 			System.out.println(person.personInfo());
 		}
-		
-		
-		
 	}
 	
-	public void update() {
-		
-	}
 	/*
-	 * Scanner 객체를 이용해서 찾고자하는 이름을 입력받아사ㅓ
+	 * Scanner 객체를 이용해서 찾고자하는 이름을 입력받아사
 	 * 존재할 경우 해당 객체의 학생-학번, 강사-과목, 직원-부서를 수정하고
 	 * '정보를 수정하였습니다' 라는 메시지 출력
 	 * 존재하지 않을 경우 '정보가 존재하지 않습니다.' 라는 메시지를 출력
 	 * HmsView - HmsService(updatePerson(String name))
 	 * */
-	public void remove() {
+	
+	public void update() {
+		System.out.println();
+		System.out.println(">>> update <<<");
+		System.out.println("수정 할 이름을 입력하세요 : ");
+		scan.nextLine();
+		String name = scan.nextLine();
 		
-	}
+		Person person = service.updatePerson(name);
+		
+		if(person == null) {
+			System.out.println("정보가 존재하지 않습니다.");
+		} else {
+			System.out.println(person.personInfo());
+		}
+		
+        // 수정 후 정보 출력
+        System.out.println("수정된 정보: " + person.personInfo());
+    }
+	
+
 	/*
 	 * Scanner 객체를 이용해서 찾고자하는 이름을 입력받아사
 	 * 존재할 경우 해당 객체를 배열에서 삭제하고
@@ -100,6 +115,11 @@ public class HmsView {
 	 * 전체 출력을 했을 때 정상적으로 출력되면 OK
 	 * HmsView - HmsService(removePerson(String name))
 	 * */
+	
+	public void remove() {
+		
+	}
+	
 	public void perPrint() {
 		System.out.println();
 		System.out.println(">>> 전체 출력 <<<");
