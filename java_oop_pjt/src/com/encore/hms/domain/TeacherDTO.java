@@ -37,8 +37,13 @@ public class TeacherDTO extends Person{
 	}
 
 	public String teacherInfo() {
-		return "name=" + super.getName() + ", age=" + super.getAge() + ", address=" + super.getAddress() + ", subject=" + this.subject;
+		// return "name=" + super.getName() + ", age=" + super.getAge() + ", address=" + super.getAddress() + ", subject=" + this.subject;
+		return super.personInfo() + ", subject=" + this.subject;
+	}
 	
+	@Override
+	public String personInfo() {
+		return super.personInfo() + ", subject=" + this.subject;
 	}
 	
 }

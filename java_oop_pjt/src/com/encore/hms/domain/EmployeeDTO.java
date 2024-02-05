@@ -45,7 +45,13 @@ public class EmployeeDTO extends Person{
 	}
 
 	public String employeeInfo() {
-		return "name=" + super.getName() + ", age=" + super.getAge() + ", address=" + super.getAddress() + ", dept=" + this.dept;
+		//return "name=" + super.getName() + ", age=" + super.getAge() + ", address=" + super.getAddress() + ", dept=" + this.dept;
+		return super.personInfo() + ", dept=" + dept ;
+	}
+	
+	@Override
+	public String personInfo() {
+		return super.personInfo() + ", dept=" + dept ;
 	}
 	
 }
