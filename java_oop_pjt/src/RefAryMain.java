@@ -50,20 +50,28 @@ public class RefAryMain {
 		System.out.println("ary person idx = " + perIdx);
 		for(int i = 0; i < perAry.length; i++) {
 			Person per = perAry[i];
-			if (per instanceof StudentDTO) { // 런타임 시점에 배열이 가지고 있는 요소에 타입을 체크하는 연산자 instanceof 런타임 시점에 타입을 체크해준다. 부모 타입이지만 까고 보면 student. 이것이 타입의 다형성
-				StudentDTO obj = (StudentDTO) per;
-				System.out.println(obj.studentInfo());
+//			if (per instanceof StudentDTO) { // 런타임 시점에 배열이 가지고 있는 요소에 타입을 체크하는 연산자 instanceof 런타임 시점에 타입을 체크해준다. 부모 타입이지만 까고 보면 student. 이것이 타입의 다형성
+//				StudentDTO obj = (StudentDTO) per;
+//				System.out.println(obj.studentInfo());
+//			}
+//			if (per instanceof TeacherDTO) {
+//				TeacherDTO obj = (TeacherDTO) per;
+//				System.out.println(obj.teacherInfo());
+//			}
+//			if (per instanceof EmployeeDTO) {
+//				EmployeeDTO obj = (EmployeeDTO) per;
+//				System.out.println(obj.employeeInfo());
+//			} 
+			
+			if(per == null) {
+				break;
 			}
-			if (per instanceof TeacherDTO) {
-				TeacherDTO obj = (TeacherDTO) per;
-				System.out.println(obj.teacherInfo());
-			}
-			if (per instanceof EmployeeDTO) {
-				EmployeeDTO obj = (EmployeeDTO) per;
-				System.out.println(obj.employeeInfo());
-			}
-		}
+			System.out.println(per.personInfo());
+			
+		}// end for
 		
-	}
+		System.out.println(">>> main demen thread end <<<");
+		
+	} // end main
 
 }
