@@ -48,4 +48,11 @@ public class HmsService {
 		perAry[idx++] = per;
 	}
 	
+	public int getIdx() {
+		return idx;
+	}
+
+	public Person[] getAry() {
+		return perAry;
+	}
 }
