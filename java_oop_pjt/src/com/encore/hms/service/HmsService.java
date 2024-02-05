@@ -4,6 +4,7 @@ import com.encore.hms.domain.EmployeeDTO;
 import com.encore.hms.domain.StudentDTO;
 import com.encore.hms.domain.TeacherDTO;
 import com.encore.hms.domain.sup.Person;
+import com.encore.hms.util.HmsType;
 
 /*
  * business logic 가지고 있는 클래스
@@ -26,17 +27,17 @@ public class HmsService {
 	
 	// 객체 생성 후 배열에 담는 로직
 	// 매개변수의 다형성
-	public String makePerson(int flag, String name, int age, String address, String comm) {
+	public String makePerson(HmsType flag, String name, int age, String address, String comm) {
 		String msg = null;
 		Person obj = null;
-		switch(flag) {
-			case 1 :
+		switch(flag) { 
+			case STU :
 				obj = new StudentDTO(name, age, address, comm);
 				break;
-			case 2 : 
+			case TEA : 
 				obj = new TeacherDTO(name, age, address, comm);
 				break;
-			case 3 :
+			case EMP :
 				obj = new EmployeeDTO(name, age, address, comm);
 				break;
 		}
