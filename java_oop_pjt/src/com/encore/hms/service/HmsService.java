@@ -55,4 +55,22 @@ public class HmsService {
 	public Person[] getAry() {
 		return perAry;
 	}
+	
+	// 찾기
+	public Person searchPerson(String name) {
+		Person person = null;
+		for(int idx = 0; idx < perAry.length; idx++) {
+			
+			person = perAry[idx];
+			if(person != null) {
+				if(person.getName().equals(name)) {
+					return person;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	
 }

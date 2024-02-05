@@ -55,16 +55,30 @@ public class HmsView {
 		}
 	} // main menu end block
 	
-	
-	public void search() {
-		
-	}
 	/*
 	 * Scanner 객체를 이용해서 찾고자하는 이름을 입력받아사ㅓ
 	 * 존재할 경우 해당 객체의 정보를 출력하고
 	 * 존재하지 않을 경우 '정보가 존재하지 않습니다.' 라는 메시지를 출력
 	 * HmsView - HmsService(seachPerson(String name))
 	 * */
+	
+	public void search() {
+		System.out.println();
+		System.out.println(">>> seach <<<");
+		System.out.println("이름을 입력하세요 : ");
+		scan.nextLine();
+		String name = scan.nextLine();
+		Person person = service.searchPerson(name);
+		if(person == null) {
+			System.out.println("정보가 존재하지 않습니다.");
+		} else {
+			System.out.println(person.personInfo());
+		}
+		
+		
+		
+	}
+	
 	public void update() {
 		
 	}
