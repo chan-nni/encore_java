@@ -25,22 +25,26 @@ public class HmsService {
 	}
 	
 	// 객체 생성 후 배열에 담는 로직
-	// 타입의 다형성
+	// 매개변수의 다형성
 	public String makePerson(int flag, String name, int age, String address, String comm) {
 		String msg = null;
 		Person obj = null;
 		switch(flag) {
 			case 1 :
 				obj = new StudentDTO(name, age, address, comm);
-				return "학생 객체를 생성하고 배열에 담았습니다.";
+				break;
 			case 2 : 
 				obj = new TeacherDTO(name, age, address, comm);
-				return "강사 객체를 생성하고 배열에 담았습니다.";
+				break;
 			case 3 :
 				obj = new EmployeeDTO(name, age, address, comm);
-				return "직원 객체를 생성하고 배열에 담았습니다.";
+				break;
 		}
-		return msg;
+		setAry(obj);
+		return (idx-1) + "번지에 데이터를 담았습니다.";
+	}
+	public void setAry(Person per) {
+		perAry[idx++] = per;
 	}
 	
 }
