@@ -44,10 +44,10 @@ public class HmsService {
 				obj = new EmployeeDTO(name, age, address, comm);
 				break;
 		}
-		setAry(obj);
+		setAry(obj); // 배열에 담는다.
 		return (idx-1) + "번지에 데이터를 담았습니다.";
 	}
-	public void setAry(Person per) {
+	public void setAry(Person per) { // 객체 생성 시 0부터 담긴다. 1개 씩 담길 때마다 인덱스는 1씩 증가한다.
 		perAry[idx++] = per;
 	}
 	
@@ -75,33 +75,45 @@ public class HmsService {
 	}
 	
 	// 수정
+	// deep copy 방법
+	// 1. 배열 객체가 가지고 있는 clone();
+	// 2. Arrays.copyOf(ary, ary.length); -- 클래를 통해 메서드에 접근, 클래스 소유 static이다.
 	public Person updatePerson(String name) {
-	    Person person = null;
-	    for (int idx = 0; idx < perAry.length; idx++) {
-	        person = perAry[idx];
-	        if (person != null) {
-	            if (person.getName().equals(name)) {
-	                if (person instanceof StudentDTO) {
-	                    // 학생인 경우 학번을 수정
-	                    System.out.println("새로운 학번을 입력하세요: ");
-	                    String newStudentId = scan.nextLine();
-	                    ((StudentDTO) person).setStuId(newStudentId);  // 새로운 학번을 전달
-	                } else if (person instanceof TeacherDTO) {
-	                    // 강사인 경우 과목을 수정
-	                    System.out.println("새로운 과목을 입력하세요: ");
-	                    String newSubject = scan.nextLine();
-	                    ((TeacherDTO) person).setSubject(newSubject);
-	                } else if (person instanceof EmployeeDTO) {
-	                    // 직원인 경우 부서를 수정
-	                    System.out.println("새로운 부서를 입력하세요: ");
-	                    String newDept = scan.nextLine();
-	                    ((EmployeeDTO) person).setDept(newDept);
-	                }
-	                return person; // 수정 후 해당 객체 반환
-	            }
-	        }
-	    }
-	    return null;
+		/* 
+		1.
+		Person[] copyAry = perAry.clone();
+		   
+		2.
+		import java.util.Arrays;
+		Person[] copyAry1 = Arrays.copyOf(perAry, perAry.length);
+		
+		System.out.println("original ary address : " + perAry);
+		System.out.println("copy 	 ary address : " + copyAry);
+		*/
+		
+		return searchPerson(name);
+	    
 	}
+	
+	// 삭제
+	
+	public boolean removePerson(String name) { 
+		for(int i = 0; i < perAry.length; i++) {
+			Person person = perAry[i];
+			if (person != null) {
+				if (person.getName().equals(name)) {
+					for(int j = i; j < perAry.length-1; j++) {
+						perAry[j] = perAry[j+i];
+					}
+					idx = idx - 1;
+					perAry[idx] = null;
+					return true;
+				}
+			}
+		}
+		  
+		return false;
+	}
+	 
 	
 }

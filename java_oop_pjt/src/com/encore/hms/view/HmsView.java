@@ -1,5 +1,6 @@
 package com.encore.hms.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.encore.hms.domain.EmployeeDTO;
@@ -17,10 +18,10 @@ public class HmsView {
 	// HmsView는 HmsService의 의존선 주입(Dependency Injection) 관계가 형성
 	// 즉, HmsView는 HmsService의 객체 생성을 통한 접근을 필요로 하는 것.
 	
-	private HmsService service;;
+	private HmsService service; // 이 변수는 클래스 전역에 쓸 수 있다.
 	
 	public HmsView() {
-		service = new HmsService(10);
+		service = new HmsService(10); // 서비스랑 관계를 가짐 인자 받으니까 스페셜 컨스럭쳐
 	}
 	
 	public void mainMenu() {
@@ -33,29 +34,36 @@ public class HmsView {
 			System.out.println("5.  생성");
 			System.out.println("99. 종료");
 			System.out.print("Input Number : ");
-			int number = scan.nextInt() ;
-			System.out.println();
-			switch (number) {
-				case 1 : 
-					perPrint() ;
-					break ;
-				case 2 :
-					search();
-					break;
-				case 3 :
-					update();
-					break;
-				case 4 :
-					remove();
-					break;
-				case 5 :
-					subMenu() ;
-					break ;
-				case 99 :
-					System.out.println("프로그램을 종료합니다. 데이터는 보관되지 않습니다.");
-					System.exit(0);
-			} // switch end block 
-		}
+			try {
+				int number = scan.nextInt();
+				switch (number) {
+					case 1 : 
+						perPrint() ;
+						break ;
+					case 2 :
+						search();
+						break;
+					case 3 :
+						update();
+						break;
+					case 4 :
+						remove();
+						break;
+					case 5 :
+						subMenu() ;
+						break ;
+					case 99 :
+						System.out.println("프로그램을 종료합니다. 데이터는 보관되지 않습니다.");
+						System.exit(0);
+					default :
+						System.out.println("메뉴에 정의된 숫자만 입력해 주세요. PLZ ");
+				
+				} // switch end block 
+			} catch(InputMismatchException e) { 
+				System.out.println("숫자만 입력하세요...");
+				scan.nextLine();
+			}
+		} // while end block
 	} // main menu end block
 	
 	/*
@@ -90,20 +98,33 @@ public class HmsView {
 	public void update() {
 		System.out.println();
 		System.out.println(">>> update <<<");
-		System.out.println("수정 할 이름을 입력하세요 : ");
-		scan.nextLine();
-		String name = scan.nextLine();
+		System.out.println("이름을 입력하세요 : ");
+		String name = scan.next();
 		
-		Person person = service.updatePerson(name);
+		Person obj = service.updatePerson(name);
 		
-		if(person == null) {
-			System.out.println("정보가 존재하지 않습니다.");
+		if(obj != null) {
+			if (obj instanceof StudentDTO) {
+				System.out.println("수정할 학번을 입력하세요 : ");
+				String stuId = scan.next(); // 공백 포함 안됨, 공백 포함하려면 nextLine() 사용
+				((StudentDTO) obj).setStuId(stuId); // studentDTO로 obj를 캐스팅한다. stuId는 자식것이기 때문에 obj가 접근 불가 그래서 sudent로 캐스팅함.
+			}
+			if (obj instanceof TeacherDTO) {
+				System.out.println("수정할 과목을 입력하세요 : ");
+				String subject = scan.next();
+				((TeacherDTO) obj).setSubject(subject);
+			}
+			if (obj instanceof EmployeeDTO) {
+				System.out.println("수정할 부서를 입력하세요 : ");
+				String dept = scan.next();
+				((EmployeeDTO) obj).setDept(dept);
+			}
 		} else {
-			System.out.println(person.personInfo());
+			System.out.println("정보가 존재하지 않습니다.");
 		}
 		
         // 수정 후 정보 출력
-        System.out.println("수정된 정보: " + person.personInfo());
+        System.out.println("수정된 정보: " + obj.personInfo());
     }
 	
 
@@ -117,6 +138,24 @@ public class HmsView {
 	 * */
 	
 	public void remove() {
+		System.out.println();
+		System.out.println(">>> remove <<<");
+		System.out.println("이름을 입력하세요 : ");
+		String name = scan.next();
+		
+		Person person = service.searchPerson(name);
+		
+		if(person == null) {
+			System.out.println("정보가 존재하지 않습니다.");
+		} else {
+			boolean flag = service.removePerson(name);
+			if (flag == true) {
+				System.out.println("객체를 삭제하였습니다.");
+			} else {
+				System.out.println("이유를 모르겠지만 작업 수행 미이행.");
+			}
+			
+		}
 		
 	}
 	

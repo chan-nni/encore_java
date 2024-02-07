@@ -46,6 +46,8 @@ public class Person {
 		this.address = address;
 	}
 
+	// 만약, 자식 클래스에서 메서드를 오버라이딩을 못하게 하고 싶다면?
+	// final
 	public String personInfo() {
 		return "name=" + name + ", age=" + age + ", address=" + address;
 	}
