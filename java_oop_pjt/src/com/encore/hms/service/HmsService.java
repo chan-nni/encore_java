@@ -1,5 +1,9 @@
 package com.encore.hms.service;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 import com.encore.hms.domain.EmployeeDTO;
@@ -115,5 +119,55 @@ public class HmsService {
 		return false;
 	}
 	 
+	public void saveToFile() {
+		FileOutputStream fis = null;
+		ObjectOutputStream oos = null;
+		try {
+			fis = new FileOutputStream("c:\\file/hms.txt");
+			oos = new ObjectOutputStream(fis);
+			
+			oos.writeObject(perAry);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(oos != null) { oos.close(); }
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+	
+	}
+	
+	public void loadToFile() {
+		FileInputStream fis = null;
+		ObjectInputStream oos = null;
+		try {
+			fis = new FileInputStream("c:\\file/hms.txt");
+			oos = new ObjectInputStream(fis);
+			perAry = ( Person [] ) oos.readObject();
+			System.out.println("serial ary length = " + perAry.length);
+			
+			int cnt = 0;
+			for(int i = 0; i < perAry.length; i++) {
+				if(perAry[i] != null) {
+					cnt = cnt + 1;
+				}
+			}
+			idx = cnt;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(oos != null) {oos.close();}
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 }

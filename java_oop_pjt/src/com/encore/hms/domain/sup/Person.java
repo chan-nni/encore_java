@@ -1,6 +1,8 @@
 package com.encore.hms.domain.sup;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
 	
 	// 자식들에게 물려줄 공통의 요소
 	// 접근 제어자가 private 이므로 자식이지만 접근을 허용하지 않는다. 
