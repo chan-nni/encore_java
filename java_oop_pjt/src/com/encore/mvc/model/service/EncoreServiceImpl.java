@@ -33,10 +33,17 @@ public class EncoreServiceImpl {
 		
 	}
 	
+//	public List<PostResponseDTO> selectService() {
+//		System.out.println(">>> Service selectService <<<");
+//		List<PostResponseDTO> resultList = dao.selectRow();
+//		return resultList;
+//		
+//	}
+	
+	// 강사님
 	public List<PostResponseDTO> selectService() {
-		System.out.println(">>> Service selectService <<<");
-		List<PostResponseDTO> resultList = dao.selectRow();
-		return resultList;
-		
+		System.out.println(">>> Dao insertService <<< "); 
+		return dao.selectRow() ; 
 	}
+	
 }

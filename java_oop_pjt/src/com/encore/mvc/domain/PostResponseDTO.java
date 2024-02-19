@@ -2,6 +2,7 @@ package com.encore.mvc.domain;
 
 public class PostResponseDTO {
 
+	private int idx;
 	private String title;
 	private String content;
 	private String writer;
@@ -11,13 +12,22 @@ public class PostResponseDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PostResponseDTO(String title, String content, String writer) {
+	public PostResponseDTO(int idx, String title, String content, String writer) {
 		super();
+		this.idx = idx;
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
 	}
 
+	public int getIdx() {
+		return idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -44,9 +54,7 @@ public class PostResponseDTO {
 
 	@Override
 	public String toString() {
-		return "PostResponseDTO [title=" + title + ", content=" + content + ", writer=" + writer + "]";
+		return "PostResponseDTO [idx=" + idx + ", title=" + title + ", content=" + content + ", writer=" + writer + "]";
 	}
-	
-	
 
 }

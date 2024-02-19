@@ -97,46 +97,79 @@ public class EncoreDAO {
 	}
 	// PostResponseDTO - idx, title, content, writer
 	// return list.add(PostResponseDTO)
+//	public List<PostResponseDTO> selectRow(){
+//		System.out.println(">>> Dao selectRow <<<");
+//		
+//		List<PostResponseDTO> resultList = new ArrayList<>();
+//		
+//		Connection conn = null;
+//	    PreparedStatement pstmt = null;
+//	    ResultSet rs = null;
+//		
+//	    try {
+//	    	conn = DriverManager.getConnection(URL, ID, PASSWORD);
+//	    	String query = "select idx, title, content, writer from post_tbl";
+//	    	pstmt = conn.prepareStatement(query);
+//	    	// 쿼리 실행
+//	        rs = pstmt.executeQuery();
+//	        
+//	        // 결과 처리
+//	        while (rs.next()) {
+//	            PostResponseDTO post = new PostResponseDTO();
+//	            post.setTitle(rs.getString("title"));
+//	            post.setContent(rs.getString("content"));
+//	            post.setWriter(rs.getString("writer"));
+//	            resultList.add(post);
+//	        }
+//	    } catch (SQLException e) {
+//	        e.printStackTrace();
+//	    } finally {
+//	        // 리소스 해제
+//	        try {
+//	            if (rs != null) rs.close();
+//	            if (pstmt != null) pstmt.close();
+//	            if (conn != null) conn.close();
+//	        } catch (SQLException e) {
+//	            e.printStackTrace();
+//	        }
+//	    }
+//
+//	    return resultList;
+//	}
+
+	// 강사님
 	public List<PostResponseDTO> selectRow(){
 		System.out.println(">>> Dao selectRow <<<");
-		
-		List<PostResponseDTO> resultList = new ArrayList<>();
-		
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-		
+	    ResultSet rset = null;
+	    
+	    String query = "select idx, title, content, writer from post_tbl";
+		List<PostResponseDTO> lst = new ArrayList<PostResponseDTO>();
 	    try {
 	    	conn = DriverManager.getConnection(URL, ID, PASSWORD);
-	    	String query = "select idx, title, content, writer from post_tbl";
 	    	pstmt = conn.prepareStatement(query);
-	    	// 쿼리 실행
-	        rs = pstmt.executeQuery();
-	        
-	        // 결과 처리
-	        while (rs.next()) {
-	            PostResponseDTO post = new PostResponseDTO();
-	            post.setTitle(rs.getString("title"));
-	            post.setContent(rs.getString("content"));
-	            post.setWriter(rs.getString("writer"));
-	            resultList.add(post);
+	        rset = pstmt.executeQuery();
+	        while (rset.next()) {
+	            int idx = rset.getInt(1);
+	            String title = rset.getString(2);
+	            String content = rset.getString(2);
+	            String writer = rset.getString(2);
+	            PostResponseDTO reponse = new PostResponseDTO(idx, title, content, writer);
+	            lst.add(reponse);
 	        }
-	    } catch (SQLException e) {
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	    } finally {
-	        // 리소스 해제
 	        try {
-	            if (rs != null) rs.close();
-	            if (pstmt != null) pstmt.close();
-	            if (conn != null) conn.close();
-	        } catch (SQLException e) {
+	            if (conn != null) { conn.close(); }
+	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
 	    }
 
-	    return resultList;
+	    return lst;
 	}
-	
 }
 
 
